@@ -19,6 +19,13 @@ const formatFullPatientReportDetails = (rawData) => {
       report_examination_id,
       examination_id,
       report_result,
+      examination_name,
+      report_type_id,
+      examination_category,
+      examination_normal_range_min,
+      examination_normal_range_max,
+      examination_unit,
+      report_type_name,
     } = row;
 
     // If this patient_report_id doesn't exist in the formatted data, initialize it
@@ -44,8 +51,18 @@ const formatFullPatientReportDetails = (rawData) => {
     // Add the examination result to the corresponding patient report
     formattedData[patient_report_id].examinations.push({
       report_examination_id,
-      patient_report_id,
-      examination_id,
+      examination: {
+        id: examination_id,
+        name: examination_name,
+        category: examination_category,
+        normal_range_min: examination_normal_range_min,
+        normal_range_max: examination_normal_range_max,
+        unit: examination_unit,
+        report_type: {
+          id: report_type_id,
+          name: report_type_name,
+        },
+      },
       result: {
         report_result,
       },

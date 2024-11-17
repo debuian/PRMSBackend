@@ -3,13 +3,10 @@ const formatFullPatientReportDetails = require("../utils/DataFromater/formatFull
 
 const getPatientReportFullDetails = async (req, res) => {
   try {
-    // Fetching the full patient report details from the database
     const result = await fetchPatientReportFullDetails();
 
-    // Log the rows of the first query (patient report details)
-    console.log(result.rows); // The rows for the first query
+    console.log(result.rows);
 
-    // If no result is found in the first query, return a 404
     if (result.rows.length === 0) {
       return res
         .status(404)

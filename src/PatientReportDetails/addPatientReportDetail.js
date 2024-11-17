@@ -8,13 +8,19 @@ const addPatientReportDetails = async (req, res) => {
   try {
     const user_id = req.user.id;
     const user_origin = req.user.origin;
+    let type;
+    if (user_origin == "pathology") {
+      type = "Pathology_Admin";
+    } else {
+      type = "Pharmacy_Admin";
+    }
     const { first_name, middle_name, last_name, gender, age, examination_id } =
       req.body;
 
     const patientDetails = { first_name, middle_name, last_name, gender, age };
     const reportCreatorDetails = {
       creator_id: user_id,
-      creator_type: user_origin,
+      creator_type: type,
     };
     const [registerPatientResult, registerReportCreatorResult] =
       await Promise.allSettled([
