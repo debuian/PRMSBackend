@@ -76,6 +76,6 @@ router.get("/pro", validateToken, (req, res) => {
   res.send(req.user);
 });
 
-router.get("/FullReportDetails", getPatientReportFullDetails);
+router.get("/FullReportDetailsByPatientReportId", getPatientReportFullDetails);
 
 module.exports = router;

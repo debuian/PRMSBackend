@@ -39,7 +39,7 @@ const getPatientReportDetails = async (req, res) => {
         pagination: {
           page: Number(page),
           limit: Number(limit),
-          total: result.rows[0].total_count, // total_count from window function
+          total: result.rows[0].total_count,
         },
       });
     } else {

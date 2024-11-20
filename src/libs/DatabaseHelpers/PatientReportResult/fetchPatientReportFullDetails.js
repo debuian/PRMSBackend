@@ -1,6 +1,6 @@
 const dbClient = require("../../../../database/database");
 
-const fetchPatientReportFullDetails = async () => {
+const fetchPatientReportFullDetails = async (report_id) => {
   const Query = `
     SELECT 
      prd.*,
@@ -30,14 +30,15 @@ const fetchPatientReportFullDetails = async () => {
 
     LEFT JOIN report_types AS rt
     ON rt.id = e.report_type_id
-    
+    WHERE
+      prd.id = $1
         ORDER BY prd.id ASC;  
   
 
   `;
 
   try {
-    const result = await dbClient.query(Query);
+    const result = await dbClient.query(Query, [report_id]);
     return result;
   } catch (error) {
     console.error("Error fetching patient report details:", error);
