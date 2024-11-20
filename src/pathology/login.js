@@ -45,8 +45,11 @@ const PathologyLogin = async (req, res) => {
       // Set the token in a cookie and send the response
       res
         .cookie("userDetails", token, {
-          maxAge: 900000, // 15 minutes
+          maxAge: 900000,
           httpOnly: true,
+        })
+        .cookie("loginDetails", "true", {
+          maxAge: 900000,
         })
         .status(200)
         .json({ message: "Pathology Login successful", email });

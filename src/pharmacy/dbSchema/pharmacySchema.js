@@ -5,9 +5,7 @@ async function CreatePharmacyTable() {
 CREATE TABLE IF NOT EXISTS Pharmacy_Admins (
     id SERIAL PRIMARY KEY,  -- Auto-incrementing id
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    location VARCHAR(100) NOT NULL
+    password VARCHAR(100) NOT NULL
 );
 `;
   try {

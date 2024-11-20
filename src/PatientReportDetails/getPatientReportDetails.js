@@ -2,7 +2,14 @@ const fetchPatientReportDetails = require("../libs/DatabaseHelpers/PatientReport
 
 const getPatientReportDetails = async (req, res) => {
   try {
-    const result = await fetchPatientReportDetails();
+    const { page = 1, limit = 5 } = req.query;
+    const offset = (page - 1) * limit;
+
+    const result = await fetchPatientReportDetails(
+      Number(limit),
+      Number(offset)
+    );
+
     if (result.rows.length > 0) {
       const formattedResult = result.rows.map((row) => ({
         reportDetails: {
@@ -29,6 +36,11 @@ const getPatientReportDetails = async (req, res) => {
       return res.status(200).json({
         message: "All Patients Report fetched successfully",
         patientsReport: formattedResult,
+        pagination: {
+          page: Number(page),
+          limit: Number(limit),
+          total: result.rows[0].total_count, // total_count from window function
+        },
       });
     } else {
       return res.status(404).json({

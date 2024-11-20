@@ -18,12 +18,7 @@ const pharmacySignup = async (req, res) => {
     });
   }
   const hashedPassword = await hashPassword(password);
-  const result = await registerPharmacyAdmin(
-    name,
-    email,
-    hashedPassword,
-    location
-  );
+  const result = await registerPharmacyAdmin(email, hashedPassword);
   res.status(200).json({ message: "Signup successful", email });
 };
 module.exports = pharmacySignup;

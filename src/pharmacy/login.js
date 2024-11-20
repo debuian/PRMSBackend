@@ -27,7 +27,9 @@ const pharmacyLogin = async (req, res) => {
       if (!isValidPassword) {
         return res.status(401).json({ message: "Invalid password" });
       }
+
       const { password: _, ...payload } = user[0];
+
       payload.origin = "pharmacy"; // Add origin to the payload
 
       const token = generateToken(payload);
@@ -37,6 +39,9 @@ const pharmacyLogin = async (req, res) => {
         .cookie("userDetails", token, {
           maxAge: 900000, // 15 minutes
           httpOnly: true,
+        })
+        .cookie("loginDetails", "true", {
+          maxAge: 900000,
         })
         .status(200)
         .json({ message: "Pharmacy Login successful", email });

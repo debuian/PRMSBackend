@@ -2,16 +2,16 @@ const dbClient = require("../../../database/database");
 
 async function createReportCreatorTables() {
   const createReportCreatorTablesQuery = `
-  CREATE TABLE IF NOT EXISTS Report_Creators (
+CREATE TABLE IF NOT EXISTS Report_Creators (
     id SERIAL PRIMARY KEY,
     creator_id INT NOT NULL,
     creator_type VARCHAR(50) NOT NULL CHECK (creator_type IN ('Pathology_Admin', 'Pharmacy_Admin'))
-      );
-  
-  -- Function to enforce the foreign key constraint
-  CREATE OR REPLACE FUNCTION check_creator_id()
-  RETURNS TRIGGER AS $$
-  BEGIN
+);
+
+-- Function to enforce the foreign key constraint
+CREATE OR REPLACE FUNCTION check_creator_id()
+RETURNS TRIGGER AS $$
+BEGIN
     -- Pathology_Admin logic
     IF NEW.creator_type = 'Pathology_Admin' THEN
       IF NOT EXISTS (SELECT 1 FROM Pathology_Admins WHERE id = NEW.creator_id) THEN
@@ -26,13 +26,20 @@ async function createReportCreatorTables() {
       RAISE EXCEPTION 'Invalid creator_type %', NEW.creator_type;
     END IF;
     RETURN NEW;
-  END;
-  $$ LANGUAGE plpgsql;
+END;
+$$ LANGUAGE plpgsql;
 
-  -- Trigger to enforce the constraint on INSERT or UPDATE
-  CREATE TRIGGER enforce_creator_id
-  BEFORE INSERT OR UPDATE ON Report_Creators
-  FOR EACH ROW EXECUTE FUNCTION check_creator_id();
+-- Only create the trigger if it doesn't already exist
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_trigger WHERE tgname = 'enforce_creator_id') THEN
+    CREATE TRIGGER enforce_creator_id
+    BEFORE INSERT OR UPDATE ON Report_Creators
+    FOR EACH ROW EXECUTE FUNCTION check_creator_id();
+  END IF;
+END
+$$;
+
   `;
 
   try {
