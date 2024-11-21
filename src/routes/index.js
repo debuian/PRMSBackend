@@ -27,6 +27,8 @@ const editPatientReportResults = require("../PatientReportResults/editPatientRep
 const getExaminationsByReportId = require("../examination/getExaminationsByReportId");
 const getReportExaminationDetails = require("../reportExamination/getReportExaminationDetails");
 const getPatientReportFullDetails = require("../PatientReportDetails/getPatientReportFullDetails");
+const generateReportPdfById = require("../ReportPdf/generateReportPdfById");
+const sendEmail = require("../mails/sendEmail");
 
 router.post("/pathologysignup", pathologySignup);
 router.post("/pathologylogin", pathologyLogin);
@@ -77,5 +79,7 @@ router.get("/pro", validateToken, (req, res) => {
 });
 
 router.get("/FullReportDetailsByPatientReportId", getPatientReportFullDetails);
+router.get("/GenerateReportPdfByReportId", generateReportPdfById);
+router.get("/sendEmail", sendEmail);
 
 module.exports = router;

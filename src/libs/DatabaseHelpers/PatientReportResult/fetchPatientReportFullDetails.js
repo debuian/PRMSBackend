@@ -33,8 +33,6 @@ const fetchPatientReportFullDetails = async (report_id) => {
     WHERE
       prd.id = $1
         ORDER BY prd.id ASC;  
-  
-
   `;
 
   try {

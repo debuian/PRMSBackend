@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require("path");
+
 require("./database/loadDatabase");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -17,6 +19,10 @@ app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  "/pdfs",
+  express.static(path.join(process.cwd(), "src", "ReportPdf", "PdfFiles"))
+);
 
 app.use(routes);
 

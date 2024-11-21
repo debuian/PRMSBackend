@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Patient Report</title>
+    <style>
+      body { font-family: Arial, sans-serif; } .report-section { margin-bottom:
+      20px; } .report-type-section { margin-top: 10px; }
+    </style>
+  </head>
+  <body>
+    <div class="report-section">
+      <strong>Name:</strong>
+      {{patient.first_name}}
+      {{patient.last_name}}
+    </div>
+    <div class="report-section">
+      <strong>Age:</strong>
+      {{patient.age}}
+    </div>
+    <div class="report-section">
+      <strong>Gender:</strong>
+      {{patient.gender}}
+    </div>
+    <div class="report-section">
+      <strong>Date:</strong>
+      {{created_at}}
+    </div>
+
+    <div class="report-section">
+      <strong>Examinations:</strong>
+
+      <!-- Hematology Examination -->
+      <div class="report-type-section">
+        <strong>Hematology:</strong>
+        <ul>
+          {{#each examinations.Hematology}}
+            <li>
+              <strong>Examination:</strong>
+              {{examination.name}}
+              <br />
+              <strong>Result:</strong>
+              {{result.report_result}}
+              <br />
+              <strong>Range:</strong>
+              {{examination.normal_range_min}}
+              -
+              {{examination.normal_range_max}}
+              {{examination.unit}}
+              <br />
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <!-- Serology Examination -->
+      <div class="report-type-section">
+        <strong>Serology:</strong>
+        <ul>
+          {{#each examinations.Serology}}
+            <li>
+              <strong>Examination:</strong>
+              {{examination.name}}
+              <br />
+              <strong>Result:</strong>
+              {{result.report_result}}
+              <br />
+              <strong>Range:</strong>
+              {{examination.normal_range_min}}
+              -
+              {{examination.normal_range_max}}
+              {{examination.unit}}
+              <br />
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+
+    </div>
+  </body>
+</html>

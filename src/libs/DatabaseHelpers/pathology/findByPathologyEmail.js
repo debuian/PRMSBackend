@@ -13,5 +13,4 @@ async function findByPathologyEmail(email) {
     throw error; // Rethrow the error for handling at a higher level
   }
 }
-
 module.exports = findByPathologyEmail;

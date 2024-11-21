@@ -1,7 +1,7 @@
 const dbClient = require("../../../../database/database");
 
 const fetchQuery = `
-SELECT * FROM Patient_Report_Details
+SELECT * FROM patient_report_details
 WHERE id = $1;
 `;
 
