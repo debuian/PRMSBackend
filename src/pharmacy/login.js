@@ -27,6 +27,9 @@ const pharmacyLogin = async (req, res) => {
       if (!isValidPassword) {
         return res.status(401).json({ message: "Invalid password" });
       }
+      if (!user[0].isverified) {
+        return res.status(401).json({ message: "Unauthorized " });
+      }
 
       const { password: _, ...payload } = user[0];
 
@@ -41,6 +44,9 @@ const pharmacyLogin = async (req, res) => {
           httpOnly: true,
         })
         .cookie("loginDetails", "true", {
+          maxAge: 900000,
+        })
+        .cookie("user", "Pharmacy", {
           maxAge: 900000,
         })
         .status(200)

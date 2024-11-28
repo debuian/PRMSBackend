@@ -24,8 +24,7 @@ const generatePdf = async (data) => {
       format: "A4",
       printBackground: true,
     });
-    // console.log("PDF Buffer Size:", pdfBuffer.length);
-    // console.log("PDF generation done");
+
     await browser.close();
     return {
       success: true,

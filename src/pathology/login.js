@@ -51,6 +51,9 @@ const PathologyLogin = async (req, res) => {
         .cookie("loginDetails", "true", {
           maxAge: 900000,
         })
+        .cookie("user", "Pathology", {
+          maxAge: 900000,
+        })
         .status(200)
         .json({ message: "Pathology Login successful", email });
     }

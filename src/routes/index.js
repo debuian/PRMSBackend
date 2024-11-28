@@ -29,9 +29,13 @@ const getReportExaminationDetails = require("../reportExamination/getReportExami
 const getPatientReportFullDetails = require("../PatientReportDetails/getPatientReportFullDetails");
 const generateReportPdfById = require("../ReportPdf/generateReportPdfById");
 const sendEmail = require("../mails/sendEmail");
+const getPharmacyDetails = require("../pathology/getPharmacyDetails");
+const updatePharmacyIsVerified = require("../pathology/updatePharmacyIsVerified");
 
 router.post("/pathologysignup", pathologySignup);
 router.post("/pathologylogin", pathologyLogin);
+router.get("/getPharmacyDetails", getPharmacyDetails);
+router.patch("/updatePharmacyIsVerified", updatePharmacyIsVerified);
 
 router.post("/pharmacySignUp", pharmacySignup);
 router.post("/pharmacyLogin", pharmacyLogin);
